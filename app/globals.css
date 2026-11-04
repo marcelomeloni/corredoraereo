@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #0e100f;
+  --color-panel: #191919;
+  --color-cream: #fffce1;
+  --color-muted: #7c7c6f;
+  --color-hairline: #42433d;
+  --color-brand-green: #0ae448;
+  --color-brand-green-light: #abff84;
+  --color-accent-urbanismo: #0ae448;
+  --color-accent-fauna: #ff8709;
+  --color-accent-flora: #fec5fb;
+  --color-accent-arvores: #abff84;
+  --color-accent-historico: #9d95ff;
+  --color-accent-clima: #00bae2;
+
+  --font-display: "Inter Tight", "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+  --font-body: "Inter Tight", "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+}
+
+/* Smooth scrolling */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ghost pill button base */
+.ghost-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: 1px solid var(--color-cream);
+  color: var(--color-cream);
+  background: transparent;
+  padding: 0.625rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.ghost-pill:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+/* Gradient pill (CTA principal) */
+.gradient-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--color-canvas), var(--color-canvas)) padding-box,
+              linear-gradient(114.41deg, #0ae448 20.74%, #abff84 65.5%) border-box;
+  color: var(--color-cream);
+  padding: 0.75rem 2rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.gradient-pill:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Section eyebrow */
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Organic blob shapes */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: 3px;
+}
