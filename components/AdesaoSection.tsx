@@ -19,8 +19,12 @@ const formSchema = z.object({
   endereco_imovel: z.string().min(5, "Endereço completo do imóvel é obrigatório"),
   tipo_ocupacao: z.string().min(1, "Selecione o tipo de ocupação"),
   situacao_calcada: z.string().min(1, "Selecione a condição atual da sua calçada"),
+  botcheck: z.string().optional(),
   concordancia: z.literal(true, {
     errorMap: () => ({ message: "É obrigatório concordar em zelar pela irrigação inicial da muda" }),
+  }),
+  privacidade: z.literal(true, {
+    errorMap: () => ({ message: "É obrigatório concordar com o uso dos dados para o plantio" }),
   }),
 });
 
@@ -40,6 +44,7 @@ const calcadaOptions = [
 
 export default function AdesaoSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -55,29 +60,78 @@ export default function AdesaoSection() {
       endereco_imovel: "",
       tipo_ocupacao: "",
       situacao_calcada: "",
+      botcheck: "",
     },
   });
 
   const onSubmit = async (data: FormData) => {
-    // Simula o envio institucional para o DPJ / Associação
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log("Adesão submetida:", data);
-    setSubmitted(true);
+    setSubmitError(null);
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setSubmitError("O envio está temporariamente indisponível. Tente novamente mais tarde.");
+      return;
+    }
+
+    const payload = {
+      access_key: accessKey,
+      subject: "Nova adesão ao plantio - Corredor Aéreo entre Bosques",
+      from_name: "Site Corredor Aéreo entre Bosques",
+      replyto: data.email,
+      botcheck: data.botcheck ?? "",
+      "Nome completo": data.nome_completo,
+      "E-mail de contato": data.email,
+      "WhatsApp/Telefone": data.telefone_whatsapp,
+      "Endereço do imóvel": data.endereco_imovel,
+      "Relação com o imóvel": data.tipo_ocupacao,
+      "Condição da calçada": data.situacao_calcada,
+      "Irrigação inicial": "Concordo",
+      "Privacidade/LGPD": "Concordo com o uso dos dados para o plantio",
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json().catch(() => null)) as {
+        success?: boolean;
+        message?: string;
+      } | null;
+
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.message ?? "Não foi possível enviar sua solicitação. Tente novamente.");
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Não foi possível enviar sua solicitação. Tente novamente."
+      );
+    }
   };
 
   const inputClasses =
-    "w-full rounded-lg border border-hairline bg-canvas px-4 py-3 text-sm text-cream placeholder-muted outline-none transition-colors focus:border-brand-green";
-  const labelClasses = "mb-1.5 block text-sm font-medium text-cream";
-  const errorClasses = "mt-1 flex items-center gap-1.5 text-xs text-red-400";
+    "w-full rounded-lg border border-line bg-canvas px-4 py-3 text-sm text-ink placeholder-ink-soft outline-none transition-colors focus:border-green";
+  const labelClasses = "mb-1.5 block text-sm font-medium text-ink";
+  const errorClasses = "mt-1 flex items-center gap-1.5 text-xs text-red-600";
 
   return (
-    <section id="adesao" className="relative border-t border-hairline px-6 py-24 md:py-32">
+    <section id="adesao" className="relative border-t border-line px-6 py-24 md:py-32">
       <div className="mx-auto max-w-3xl">
         
 
         {/* Title */}
         <motion.h2
-          className="mt-8 text-center font-display text-4xl font-bold leading-tight tracking-tight text-cream md:text-5xl"
+          className="mt-8 text-center font-display text-4xl font-bold leading-tight tracking-tight text-ink md:text-5xl"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -88,13 +142,13 @@ export default function AdesaoSection() {
 
         {/* Explanation */}
         <motion.p
-          className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-muted"
+          className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-ink-soft"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          Você mora no Jardim Chapadão ou Guanabara (especialmente no perímetro do projeto)?
+          Você mora no Jardim Chapadão ou no Jardim Guanabara (especialmente no perímetro do projeto)?
           A Prefeitura abre o berço na calçada e realiza o plantio da muda nativa adequada, sem custos.
           Você só precisa autorizar e regar nos primeiros meses.
         </motion.p>
@@ -108,18 +162,19 @@ export default function AdesaoSection() {
           viewport={{ once: true }}
         >
           {submitted ? (
-            <div className="rounded-lg border border-brand-green/30 bg-panel p-10 text-center">
-              <CheckCircle2 className="mx-auto mb-4 h-14 w-14 text-brand-green" />
-              <h3 className="mb-2 text-2xl font-bold text-cream">Solicitação Enviada com Sucesso!</h3>
-              <p className="mx-auto max-w-md text-sm leading-relaxed text-muted">
-                Sua adesão foi registrada na Associação dos Amigos do Bosque dos Italianos e encaminhada ao DPJ (Prefeitura de Campinas). Entraremos em contato para vistoria técnica da calçada e agendamento do plantio gratuito.
+            <div role="status" className="rounded-lg border border-green/30 bg-panel p-10 text-center">
+              <CheckCircle2 className="mx-auto mb-4 h-14 w-14 text-green" />
+              <h3 className="mb-2 text-2xl font-bold text-ink">Solicitação Enviada com Sucesso!</h3>
+              <p className="mx-auto max-w-md text-sm leading-relaxed text-ink-soft">
+                Sua adesão foi registrada pelos Amigos do Bosque dos Italianos e encaminhada ao DPJ (Prefeitura de Campinas). Entraremos em contato para vistoria técnica da calçada e agendamento do plantio gratuito.
               </p>
               <button
                 type="button"
-                onClick={() => {
-                  setSubmitted(false);
-                  reset();
-                }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setSubmitError(null);
+                    reset();
+                  }}
                 className="ghost-pill mt-8"
                 aria-label="Fazer outra solicitação"
               >
@@ -130,12 +185,21 @@ export default function AdesaoSection() {
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="space-y-6 rounded-lg border border-hairline bg-panel p-6 sm:p-10"
+              className="space-y-6 rounded-lg border border-line bg-panel p-6 sm:p-10"
             >
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+                {...register("botcheck")}
+              />
+
               {/* Nome */}
               <div>
                 <label htmlFor="nome_completo" className={labelClasses}>
-                  Nome Completo <span className="text-brand-green">*</span>
+                  Nome Completo <span className="text-green">*</span>
                 </label>
                 <input
                   id="nome_completo"
@@ -157,7 +221,7 @@ export default function AdesaoSection() {
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <label htmlFor="email" className={labelClasses}>
-                    E-mail de Contato <span className="text-brand-green">*</span>
+                    E-mail de Contato <span className="text-green">*</span>
                   </label>
                   <input
                     id="email"
@@ -177,7 +241,7 @@ export default function AdesaoSection() {
 
                 <div>
                   <label htmlFor="telefone_whatsapp" className={labelClasses}>
-                    WhatsApp / Telefone <span className="text-brand-green">*</span>
+                    WhatsApp / Telefone <span className="text-green">*</span>
                   </label>
                   <input
                     id="telefone_whatsapp"
@@ -199,7 +263,7 @@ export default function AdesaoSection() {
               {/* Endereço */}
               <div>
                 <label htmlFor="endereco_imovel" className={labelClasses}>
-                  Endereço do Imóvel (Rua, Número, Bairro) <span className="text-brand-green">*</span>
+                  Endereço do Imóvel (Rua, Número, Bairro) <span className="text-green">*</span>
                 </label>
                 <input
                   id="endereco_imovel"
@@ -220,7 +284,7 @@ export default function AdesaoSection() {
               {/* Tipo Ocupação */}
               <div>
                 <label htmlFor="tipo_ocupacao" className={labelClasses}>
-                  Você é: <span className="text-brand-green">*</span>
+                  Você é: <span className="text-green">*</span>
                 </label>
                 <select
                   id="tipo_ocupacao"
@@ -230,7 +294,7 @@ export default function AdesaoSection() {
                 >
                   <option value="">Selecione sua relação com o imóvel...</option>
                   {ocupacaoOptions.map((opt) => (
-                    <option key={opt} value={opt} className="bg-panel text-cream">
+                    <option key={opt} value={opt} className="bg-panel text-ink">
                       {opt}
                     </option>
                   ))}
@@ -247,19 +311,19 @@ export default function AdesaoSection() {
               <div>
                 <fieldset>
                   <legend className={labelClasses}>
-                    Condição da Calçada <span className="text-brand-green">*</span>
+                    Condição da Calçada <span className="text-green">*</span>
                   </legend>
                   <div className="mt-3 space-y-2.5">
                     {calcadaOptions.map((opt) => (
                       <label
                         key={opt}
-                        className="flex cursor-pointer items-start gap-3 rounded-md border border-transparent p-2 text-sm text-cream/90 transition-colors hover:border-hairline hover:bg-canvas/40"
+                        className="flex cursor-pointer items-start gap-3 rounded-md border border-transparent p-2 text-sm text-ink/90 transition-colors hover:border-line hover:bg-canvas/40"
                       >
                         <input
                           type="radio"
                           value={opt}
                           {...register("situacao_calcada")}
-                          className="mt-0.5 accent-brand-green"
+                          className="mt-0.5 accent-green"
                         />
                         <span>{opt}</span>
                       </label>
@@ -276,15 +340,15 @@ export default function AdesaoSection() {
 
               {/* Concordância */}
               <div className="pt-2">
-                <label className="flex cursor-pointer items-start gap-3 text-sm text-cream/90">
+                <label className="flex cursor-pointer items-start gap-3 text-sm text-ink/90">
                   <input
                     type="checkbox"
                     {...register("concordancia")}
-                    className="mt-1 accent-brand-green"
+                    className="mt-1 accent-green"
                   />
                   <span>
                     Concordo em zelar pela irrigação inicial da muda nos primeiros meses de adaptação{" "}
-                    <span className="text-brand-green">*</span>
+                    <span className="text-green">*</span>
                   </span>
                 </label>
                 {errors.concordancia && (
@@ -295,6 +359,37 @@ export default function AdesaoSection() {
                 )}
               </div>
 
+              <div>
+                <label className="flex cursor-pointer items-start gap-3 text-sm text-ink/90">
+                  <input
+                    type="checkbox"
+                    {...register("privacidade")}
+                    className="mt-1 accent-green"
+                  />
+                  <span>
+                    Concordo que meus dados sejam usados apenas para vistoria, contato e agendamento
+                    do plantio gratuito, não sendo compartilhados para outras finalidades.{" "}
+                    <span className="text-green">*</span>
+                  </span>
+                </label>
+                {errors.privacidade && (
+                  <p className={errorClasses}>
+                    <AlertCircle className="h-3 w-3 shrink-0" />
+                    {errors.privacidade.message}
+                  </p>
+                )}
+              </div>
+
+              {submitError && (
+                <div
+                  role="alert"
+                  className="flex items-start gap-2 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+                >
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{submitError}</span>
+                </div>
+              )}
+
               {/* Submit CTA */}
               <div className="pt-4">
                 <button
@@ -303,10 +398,10 @@ export default function AdesaoSection() {
                   className="gradient-pill flex w-full items-center justify-center gap-2 py-3.5 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-50"
                   aria-label="Enviar Solicitação de Adesão"
                 >
-                  <TreePine className="h-5 w-5 text-brand-green" />
+                  <TreePine className="h-5 w-5 text-green" />
                   {isSubmitting ? "Enviando solicitação..." : "Enviar Solicitação de Adesão"}
                 </button>
-                <p className="mt-3 text-center text-xs text-muted">
+                <p className="mt-3 text-center text-xs text-ink-soft">
                   Plantio 100% gratuito executado pelo DPJ / Prefeitura Municipal de Campinas.
                 </p>
               </div>

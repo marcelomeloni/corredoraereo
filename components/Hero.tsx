@@ -23,8 +23,8 @@ export default function Hero() {
   return (
     <section className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pt-24 pb-16">
       {/* Decorative blobs */}
-      <div className="blob left-[-10%] top-[20%] h-[500px] w-[500px] bg-brand-green" />
-      <div className="blob right-[-5%] bottom-[10%] h-[400px] w-[400px] bg-brand-green-light" />
+      <div className="blob left-[-10%] top-[20%] h-[500px] w-[500px] bg-green" />
+      <div className="blob right-[-5%] bottom-[10%] h-[400px] w-[400px] bg-green-soft" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Eyebrow */}
@@ -46,7 +46,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="font-display text-[clamp(3rem,10vw,11.25rem)] font-black leading-[0.9] tracking-[-0.02em] text-cream"
+              className="font-display text-[clamp(3rem,10vw,11.25rem)] font-black leading-[0.9] tracking-[-0.02em] text-ink"
             >
               {line}
             </motion.h1>
@@ -55,14 +55,14 @@ export default function Hero() {
 
         {/* Lead */}
         <motion.p
-          className="mb-12 max-w-2xl text-lg leading-relaxed text-muted md:text-xl"
+          className="mb-12 max-w-2xl text-lg leading-relaxed text-ink-soft md:text-xl"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           Uma ponte vegetal de 500 metros unindo o Bosque dos Italianos e o Bosque dos
           Alemães em Campinas. Resgatando o fluxo gênico, a avifauna e a qualidade de vida
-          nos bairros Guanabara e Chapadão.
+          nos bairros Jardim Guanabara e Jardim Chapadão.
         </motion.p>
 
         {/* CTAs */}
@@ -84,15 +84,15 @@ export default function Hero() {
 
         {/* Quick Metrics */}
         <motion.div
-          className="grid grid-cols-2 gap-6 border-t border-hairline pt-10 md:grid-cols-4"
+          className="grid grid-cols-2 gap-6 border-t border-line pt-10 md:grid-cols-4"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
           {metrics.map((m) => (
             <div key={m.label}>
-              <p className="text-3xl font-bold text-brand-green md:text-4xl">{m.value}</p>
-              <p className="mt-1 text-sm text-muted">{m.label}</p>
+              <p className="text-3xl font-bold text-green md:text-4xl">{m.value}</p>
+              <p className="mt-1 text-sm text-ink-soft">{m.label}</p>
             </div>
           ))}
         </motion.div>

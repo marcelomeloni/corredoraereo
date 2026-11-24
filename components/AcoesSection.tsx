@@ -15,7 +15,7 @@ const phases = [
     title: "Inventário Quali-Quantitativo",
     desc: "Mapeamento botânico das árvores existentes, faltantes ou mortas nas calçadas do polígono.",
     icon: CheckCircle2,
-    statusColor: "#0ae448",
+    statusColor: "#237a3b",
   },
   {
     phase: "Etapa 02",
@@ -23,7 +23,7 @@ const phases = [
     title: "Sensibilização e Adesão de Moradores",
     desc: "Diálogo porta a porta e online para autorização do plantio pelos donos de imóveis.",
     icon: Clock,
-    statusColor: "#00bae2",
+    statusColor: "#0e8fae",
   },
   {
     phase: "Etapa 03",
@@ -31,7 +31,7 @@ const phases = [
     title: "Plantio Técnico e Recomposição",
     desc: "Corte de calçada, destoca se necessário, adubação, estaqueamento e plantio pela equipe do DPJ.",
     icon: Circle,
-    statusColor: "#7c7c6f",
+    statusColor: "#5b6d5c",
   },
   {
     phase: "Etapa 04",
@@ -39,19 +39,19 @@ const phases = [
     title: "Monitoramento e Tutoria",
     desc: "Acompanhamento até a copa superar 2 metros de altura e atingir autossuficiência.",
     icon: RotateCcw,
-    statusColor: "#9d95ff",
+    statusColor: "#6c5ad0",
   },
 ];
 
 export default function AcoesSection() {
   return (
-    <section id="acoes" className="relative border-t border-hairline px-6 py-24 md:py-32">
+    <section id="acoes" className="relative border-t border-line px-6 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
 
 
         {/* Title */}
         <motion.h2
-          className="mt-8 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-cream md:text-6xl"
+          className="mt-8 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-ink md:text-6xl"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -62,7 +62,7 @@ export default function AcoesSection() {
 
         {/* Progress Widget */}
         <motion.div
-          className="mt-12 rounded-lg border border-hairline bg-panel p-8"
+          className="mt-12 rounded-lg border border-line bg-panel p-8"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -72,9 +72,9 @@ export default function AcoesSection() {
             <div className="flex items-center gap-3">
               <Target className="h-6 w-6 text-accent-clima" />
               <div>
-                <p className="text-sm text-muted">Meta de Plantio</p>
-                <p className="text-3xl font-bold text-cream">
-                  150 <span className="text-lg font-normal text-muted">árvores</span>
+                <p className="text-sm text-ink-soft">Meta de Plantio</p>
+                <p className="text-3xl font-bold text-ink">
+                  150 <span className="text-lg font-normal text-ink-soft">árvores</span>
                 </p>
               </div>
             </div>
@@ -84,17 +84,17 @@ export default function AcoesSection() {
           </div>
 
           {/* Progress bar */}
-          <div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-canvas">
+          <div className="mb-4 h-2 w-full overflow-hidden rounded-full bg-line/50">
             <motion.div
               className="h-full rounded-full"
-              style={{ background: "linear-gradient(90deg, #0ae448, #abff84)" }}
+              style={{ background: "linear-gradient(90deg, #237a3b, #8bd96b)" }}
               initial={{ width: "0%" }}
               whileInView={{ width: "35%" }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
             />
           </div>
-          <p className="text-xs text-muted">
+          <p className="text-xs text-ink-soft">
             Mudas, abertura de berço, preparo do solo e destoca fornecidos pelo DPJ (Prefeitura de Campinas)
           </p>
         </motion.div>
@@ -120,14 +120,14 @@ export default function AcoesSection() {
                   <p.icon className="h-5 w-5" style={{ color: p.statusColor }} />
                 </div>
                 {i < phases.length - 1 && (
-                  <div className="mt-2 h-full w-px bg-hairline" />
+                  <div className="mt-2 h-full w-px bg-line" />
                 )}
               </div>
 
               {/* Content */}
               <div className="pt-1">
                 <div className="mb-1 flex flex-wrap items-center gap-3">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-muted">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-ink-soft">
                     {p.phase}
                   </span>
                   <span
@@ -140,8 +140,8 @@ export default function AcoesSection() {
                     {p.status}
                   </span>
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-cream">{p.title}</h3>
-                <p className="max-w-xl text-sm leading-relaxed text-muted">{p.desc}</p>
+                <h3 className="mb-2 text-lg font-semibold text-ink">{p.title}</h3>
+                <p className="max-w-xl text-sm leading-relaxed text-ink-soft">{p.desc}</p>
               </div>
             </motion.div>
           ))}

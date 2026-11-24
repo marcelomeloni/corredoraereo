@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#eef5e8"/>
+  <rect x="24" y="24" width="752" height="552" rx="24" fill="#ffffff" stroke="#8bd96b" stroke-width="4"/>
+  <path d="M400 330C318 292 318 196 400 150C482 196 482 292 400 330Z" fill="#8bd96b"/>
+  <path d="M400 330V410" stroke="#237a3b" stroke-width="10" stroke-linecap="round"/>
+  <text x="400" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#17351f">Foto: Cereja-do-Rio-Grande</text>
+  <text x="400" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#5b6d5c">Placeholder</text>
+</svg>

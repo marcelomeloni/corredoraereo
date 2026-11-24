@@ -16,15 +16,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-hairline bg-canvas/80 backdrop-blur-xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-line bg-canvas/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Brand */}
         <a href="#" className="flex items-center gap-3">
-          <Trees className="h-6 w-6 text-brand-green" />
+          <Trees className="h-6 w-6 text-green" />
           <div>
-            <span className="text-lg font-bold tracking-tight text-cream">
+            <span className="text-lg font-bold tracking-tight text-ink">
               Corredor Aéreo{" "}
-              <span className="text-brand-green">{"{ Bosques }"}</span>
+              <span className="text-green">{"{ Bosques }"}</span>
             </span>
            
           </div>
@@ -36,7 +36,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted transition-colors duration-300 hover:text-cream"
+              className="text-sm text-ink-soft transition-colors duration-300 hover:text-ink"
             >
               {link.label}
             </a>
@@ -48,7 +48,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="text-cream lg:hidden"
+          className="text-ink lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
         >
@@ -63,7 +63,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-t border-hairline bg-canvas/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t border-line bg-canvas/95 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col gap-4 px-6 py-6">
               {menuLinks.map((link) => (
@@ -71,7 +71,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-base text-muted transition-colors hover:text-cream"
+                  className="text-base text-ink-soft transition-colors hover:text-ink"
                 >
                   {link.label}
                 </a>

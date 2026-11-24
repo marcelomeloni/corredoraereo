@@ -20,13 +20,13 @@ const streets = [
 
 export default function HistoricoSection() {
   return (
-    <section id="historico" className="relative border-t border-hairline px-6 py-24 md:py-32">
+    <section id="historico" className="relative border-t border-line px-6 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
 
 
         {/* Title */}
         <motion.h2
-          className="mt-8 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-cream md:text-6xl"
+          className="mt-8 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-ink md:text-6xl"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -39,7 +39,7 @@ export default function HistoricoSection() {
         <div className="mt-16 grid gap-8 md:grid-cols-2">
           {/* Bosque dos Italianos */}
           <motion.div
-            className="rounded-lg border border-hairline bg-panel p-8"
+            className="rounded-lg border border-line bg-panel p-8"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -47,19 +47,19 @@ export default function HistoricoSection() {
           >
             <div className="mb-4 flex items-center gap-3">
               <TreePine className="h-6 w-6 text-accent-historico" />
-              <h3 className="text-xl font-bold text-cream">Bosque dos Italianos</h3>
+              <h3 className="text-xl font-bold text-ink">Bosque dos Italianos</h3>
             </div>
-            <p className="mb-1 text-sm text-muted">Praça Samuel Wainer — Jardim Chapadão</p>
+            <p className="mb-1 text-sm text-ink-soft">Praça Samuel Wainer — Jardim Chapadão</p>
             <div className="mt-4 space-y-3">
               <div className="flex items-start gap-2">
-                <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
-                <p className="text-sm leading-relaxed text-cream/80">
+                <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-ink-soft" />
+                <p className="text-sm leading-relaxed text-ink/80">
                   Biblioteca Infantil Monteiro Lobato, trilhas de caminhada, espaço de Tai Chi Chuan, academia ao ar livre e galpão comunitário.
                 </p>
               </div>
               <div className="flex items-start gap-2">
-                <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
-                <p className="text-sm leading-relaxed text-cream/80">
+                <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-ink-soft" />
+                <p className="text-sm leading-relaxed text-ink/80">
                   <span className="font-semibold text-accent-flora">82 espécies nativas</span> catalogadas (Santin, 1999).
                 </p>
               </div>
@@ -68,7 +68,7 @@ export default function HistoricoSection() {
 
           {/* Bosque dos Alemães */}
           <motion.div
-            className="rounded-lg border border-hairline bg-panel p-8"
+            className="rounded-lg border border-line bg-panel p-8"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -76,19 +76,19 @@ export default function HistoricoSection() {
           >
             <div className="mb-4 flex items-center gap-3">
               <TreePine className="h-6 w-6 text-accent-historico" />
-              <h3 className="text-xl font-bold text-cream">Bosque dos Alemães</h3>
+              <h3 className="text-xl font-bold text-ink">Bosque dos Alemães</h3>
             </div>
-            <p className="mb-1 text-sm text-muted">Praça João Lech Júnior — Jardim Guanabara</p>
+            <p className="mb-1 text-sm text-ink-soft">Praça João Lech Júnior — Jardim Guanabara</p>
             <div className="mt-4 space-y-3">
               <div className="flex items-start gap-2">
-                <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
-                <p className="text-sm leading-relaxed text-cream/80">
+                <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-ink-soft" />
+                <p className="text-sm leading-relaxed text-ink/80">
                   Trilhas sombreadas, playground, área de meditação e bem-estar, polo gastronômico e educacional no entorno.
                 </p>
               </div>
               <div className="flex items-start gap-2">
-                <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
-                <p className="text-sm leading-relaxed text-cream/80">
+                <BookOpen className="mt-0.5 h-4 w-4 shrink-0 text-ink-soft" />
+                <p className="text-sm leading-relaxed text-ink/80">
                   <span className="font-semibold text-accent-flora">70 espécies nativas</span> catalogadas (Santin, 1999).
                 </p>
               </div>
@@ -98,7 +98,7 @@ export default function HistoricoSection() {
 
         {/* Polygon Perimeter */}
         <motion.div
-          className="mt-12 rounded-lg border border-hairline bg-panel p-8"
+          className="mt-12 rounded-lg border border-line bg-panel p-8"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -106,20 +106,20 @@ export default function HistoricoSection() {
         >
           <div className="mb-4 flex items-center gap-3">
             <MapPin className="h-6 w-6 text-accent-historico" />
-            <h3 className="text-xl font-bold text-cream">Área de Intervenção Oficial (Polígono Delimitado)</h3>
+            <h3 className="text-xl font-bold text-ink">Área de Intervenção Oficial (Polígono Delimitado)</h3>
           </div>
-          <p className="mb-6 text-sm text-muted">
+          <p className="mb-6 text-sm text-ink-soft">
             Perímetro urbano onde ocorre o plantio contínuo e prioritário de mudas nas calçadas:
           </p>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {streets.map((street) => (
-              <div key={street} className="flex items-center gap-2 text-sm text-cream/80">
+              <div key={street} className="flex items-center gap-2 text-sm text-ink/80">
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent-historico" />
                 {street}
               </div>
             ))}
           </div>
-          <p className="mt-6 text-xs text-muted">
+          <p className="mt-6 text-xs text-ink-soft">
             Polígono 23K: Vértices 1 a 4 cobrindo extensão linear de mais de 800m.
           </p>
         </motion.div>

@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import RestauracaoSection from "@/components/RestauracaoSection";
 import ProjetoSection from "@/components/ProjetoSection";
 import HistoricoSection from "@/components/HistoricoSection";
 import BiodiversidadeSection from "@/components/BiodiversidadeSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <RestauracaoSection />
         <ProjetoSection />
         <HistoricoSection />
         <BiodiversidadeSection />

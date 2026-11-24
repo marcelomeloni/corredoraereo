@@ -33,13 +33,13 @@ const fadeUp = {
 
 export default function ProjetoSection() {
   return (
-    <section id="projeto" className="relative border-t border-hairline px-6 py-24 md:py-32">
+    <section id="projeto" className="relative border-t border-line px-6 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
  
 
         {/* Title */}
         <motion.h2
-          className="mt-8 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-cream md:text-6xl"
+          className="mt-8 max-w-4xl font-display text-4xl font-bold leading-tight tracking-tight text-ink md:text-6xl"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -50,7 +50,7 @@ export default function ProjetoSection() {
 
         {/* Description */}
         <motion.p
-          className="mt-6 max-w-3xl text-lg leading-relaxed text-muted"
+          className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-soft"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -64,18 +64,18 @@ export default function ProjetoSection() {
 
         {/* Scientific Quote */}
         <motion.blockquote
-          className="mt-10 max-w-3xl border-l-2 border-brand-green pl-6"
+          className="mt-10 max-w-3xl border-l-2 border-green pl-6"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="text-base italic leading-relaxed text-cream/80">
+          <p className="text-base italic leading-relaxed text-ink/80">
             &ldquo;O isolamento reprodutivo induz à autopolinização e bloqueia a troca de
             diásporas. A polinização passa a depender exclusivamente de uma fauna restrita de
             aves, morcegos e vento.&rdquo;
           </p>
-          <cite className="mt-3 block text-sm not-italic text-muted">
+          <cite className="mt-3 block text-sm not-italic text-ink-soft">
             — Dr. Santin (1999) — Unicamp
           </cite>
         </motion.blockquote>
@@ -85,16 +85,16 @@ export default function ProjetoSection() {
           {benefits.map((b, i) => (
             <motion.div
               key={b.title}
-              className="rounded-lg border border-hairline bg-panel p-6"
+              className="rounded-lg border border-line bg-panel p-6"
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
             >
-              <b.icon className="mb-4 h-8 w-8 text-brand-green" />
-              <h3 className="mb-2 text-lg font-semibold text-cream">{b.title}</h3>
-              <p className="text-sm leading-relaxed text-muted">{b.desc}</p>
+              <b.icon className="mb-4 h-8 w-8 text-green" />
+              <h3 className="mb-2 text-lg font-semibold text-ink">{b.title}</h3>
+              <p className="text-sm leading-relaxed text-ink-soft">{b.desc}</p>
             </motion.div>
           ))}
         </div>
