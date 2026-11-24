@@ -7,6 +7,8 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { TreePine, CheckCircle2, AlertCircle } from "lucide-react";
 
+const WEB3FORMS_ACCESS_KEY = "1f54c64a-aa20-412e-9ed8-322bcd95651a";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
@@ -67,15 +69,8 @@ export default function AdesaoSection() {
   const onSubmit = async (data: FormData) => {
     setSubmitError(null);
 
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-
-    if (!accessKey) {
-      setSubmitError("O envio está temporariamente indisponível. Tente novamente mais tarde.");
-      return;
-    }
-
     const payload = {
-      access_key: accessKey,
+      access_key: WEB3FORMS_ACCESS_KEY,
       subject: "Nova adesão ao plantio - Corredor Aéreo entre Bosques",
       from_name: "Site Corredor Aéreo entre Bosques",
       replyto: data.email,
